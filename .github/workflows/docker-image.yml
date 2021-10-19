@@ -25,6 +25,8 @@ jobs:
         docker create --name testcontainer $id
         docker cp testcontainer:/testresults/ .
         docker rm testcontainer
+        ls -la
+        ls -la testresults/
     
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1
