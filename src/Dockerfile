@@ -17,7 +17,7 @@ FROM build AS testlayer
 ARG BuildId=localhost
 LABEL test=${BuildId}
 RUN dotnet test --no-build -c Release --results-directory /testresults \
-    --logger "trx;LogFileName=test_results.trx" --collect:"XPlat Code Coverage" \
+    --logger "nunit;LogFileName=test_results.xml" --collect:"XPlat Code Coverage" \
     /p:CoverletOutput=/testresults/coverage/ test/dotnet-actions-v-pipelines-tests.csproj
 
 FROM build AS publish
