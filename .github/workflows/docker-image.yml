@@ -35,7 +35,7 @@ jobs:
     - name: Copy coverage
       run: |
         cov_file=$(find testresults -name coverage.cobertura.xml | grep -v "testresults/_")
-        cp $cov_file coverage/coverage.cobertura.xml
+        cp testresults/$cov_file coverage/coverage.cobertura.xml
 
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.0.2
