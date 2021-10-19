@@ -23,7 +23,7 @@ jobs:
       run: |
         id=$(docker images --filter "label=test=localhost" -q | head -1)
         docker create --name testcontainer $id
-        docker cp testcontainer:/testresults .
+        docker cp testcontainer:/testresults/ .
         docker rm testcontainer
     
     - name: Publish Unit Test Results
@@ -31,6 +31,24 @@ jobs:
       if: always()
       with:
         files: testresults/*.xml
+    
+    - name: Copy coverage
+      run: cp testresults/coverage/[^_]*/**/coverage.cobertura.xml coverage/coverage.cobertura.xml
+
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.0.2
+      with:
+        filename: coverage/coverage.cobertura.xml
+        badge: true
+        format: 'markdown'
+        output: 'both'
+
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        recreate: true
+        path: code-coverage-results.md
 
     - name: GitHub Container Registry Login
       uses: docker/login-action@v1
