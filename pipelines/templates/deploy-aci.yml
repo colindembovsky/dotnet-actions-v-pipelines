@@ -22,7 +22,7 @@ jobs:
     vmImage: ubuntu-latest
   variables:
     rg: ${{ parameters.prefix}}-${{ parameters.environment }}
-    aci: ${{ parameters.prefix}}-app-${{ parameters.environment }}
+    aci: ${{ parameters.prefix}}-app-azdo-${{ parameters.environment }}
   environment:
     ${{ parameters.environment }}
   strategy:
