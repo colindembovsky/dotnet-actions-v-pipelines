@@ -32,6 +32,7 @@ jobs:
       repository: $(repository)
       tags: $(tag)
       Dockerfile: src/Dockerfile
+      buildContext: .
       # DOCKER_BUILDKIT=0
 
   - bash: |
