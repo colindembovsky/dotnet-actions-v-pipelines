@@ -6,4 +6,4 @@ aci_name=$2
 image=$3
 
 az group create -n $rg -l southcentralus
-az container create -g $rg --name $aci_name --image $image
+az container create -g $rg --name $aci_name --image $image --dns-name-label $aci_name
