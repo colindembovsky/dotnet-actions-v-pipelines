@@ -1,4 +1,25 @@
 trigger: none
 
+variables:
+  repository: colindembovsky/dotnet-actions-v-pipelines-azdo
+  tag: $[counter(variables['repository'], 1)]
+
 jobs:
 - template: ./templates/build-container.yml
+  parameters:
+    repository: $(repository)
+    tag: $(tag)
+
+- template: ./templates/deploy-aci.yml
+  parameters:
+    dependsOn:
+    - build
+    environment: dev
+    image: ghcr.io/$(repository):$(tag)
+
+- template: ./templates/deploy-aci.yml
+  parameters:
+    dependsOn:
+    - deploy_dev
+    environment: prod
+    image: ghcr.io/$(repository):$(tag)
