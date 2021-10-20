@@ -2,9 +2,6 @@ parameters:
 - name: registry
   type: string
   default: ghcr
-# - name: imagePrefix
-#   type: string
-#   default: ghcr.io
 
 jobs:
 - job: build
@@ -14,8 +11,6 @@ jobs:
   
   variables:
     repository: colindembovsky/dotnet-actions-v-pipelines-azdo
-    # tagVersion: $[counter(variables['repository'], 1)]
-    # tag: ${{ parameters.imagePrefix }}/$(repository):$(tagVersion)
     tag: $[counter(variables['repository'], 1)]
 
   steps:
@@ -33,7 +28,6 @@ jobs:
       tags: $(tag)
       Dockerfile: src/Dockerfile
       buildContext: .
-      # DOCKER_BUILDKIT=0
 
   - bash: |
       id=$(docker images --filter "label=test=localhost" -q | head -1)
@@ -52,7 +46,7 @@ jobs:
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: 'Cobertura'
-      summaryFileLocation: testResults/**/coverage.cobertura.xml
+      summaryFileLocation: testresults/**/coverage.cobertura.xml
       pathToSources: src/
       
   - task: Docker@2
@@ -61,4 +55,3 @@ jobs:
       command: push
       repository: $(repository)
       tags: $(tag)
-      # DOCKER_BUILDKIT=0
