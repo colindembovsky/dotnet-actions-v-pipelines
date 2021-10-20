@@ -23,7 +23,7 @@ runs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.azure_creds }}
+        creds: ${{ inputs.azure_creds }}
     
     - name: Deploy the image
       shell: bash
