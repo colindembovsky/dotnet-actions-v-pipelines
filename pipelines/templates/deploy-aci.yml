@@ -1,0 +1,36 @@
+parameters:
+- name: environment
+  type: string
+  default: dev
+- name: azureSubscription
+  type: string
+  default: AzureDemo
+- name: prefix
+  type: string
+  default: vslive-demo
+- name: image 
+  type: string
+  
+jobs:
+- deployment: deploy_${{ parameters.environment }}
+  dependsOn: ${{ parameters.dependsOn }}
+  displayName: Deploy ACI to ${{ parameters.environment }}
+  pool:
+    vmImage: ubuntu-latest
+  variables:
+    rg: ${{ parameters.prefix}}-${{ parameters.environment }}
+    aci: ${{ parameters.prefix}}-app-${{ parameters.environment }}
+  environment:
+    ${{ parameters.environment }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: AzureCLI@2
+          displayName: Deploy ACI
+          inputs:
+            azureSubscription: ${{ parameters.azureSubscription }}
+            scriptType: bash
+            scriptLocation: scriptPath
+            scriptPath: ./infra/aci.sh
+            arguments: $(rg) $(aci) ${{ parameters.image }}
