@@ -2,9 +2,9 @@ parameters:
 - name: registry
   type: string
   default: ghcr
-- name: imagePrefix
-  type: string
-  default: ghcr.io
+# - name: imagePrefix
+#   type: string
+#   default: ghcr.io
 
 jobs:
 - job: build
@@ -14,8 +14,9 @@ jobs:
   
   variables:
     repository: colindembovsky/dotnet-actions-v-pipelines-azdo
-    tagVersion: $[counter(variables['repository'], 1)]
-    tag: ${{ parameters.imagePrefix }}/$(repository):$(tagVersion)
+    # tagVersion: $[counter(variables['repository'], 1)]
+    # tag: ${{ parameters.imagePrefix }}/$(repository):$(tagVersion)
+    tag: $[counter(variables['repository'], 1)]
 
   steps:
   - task: Docker@2
