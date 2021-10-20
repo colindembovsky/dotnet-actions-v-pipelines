@@ -21,8 +21,8 @@ stages:
       environment: dev
       image: ghcr.io/$(repository):$(tag)
 
-- stage: dev
-  displayName: Dev
+- stage: prod
+  displayName: Prod
   jobs:
   - template: ./templates/deploy-aci.yml
     parameters:
