@@ -63,3 +63,15 @@ jobs:
     - name: Push the container
       run: |
         docker push ghcr.io/${{ github.repository }}:${{ github.run_number }}
+
+  deploy_dev:
+    needs: build
+    environment: dev
+    - uses: actions/checkout@v2
+
+    - uses: ./.github/workflows/composite/deploy-steps.yml
+      with:
+        resource_group: vslive-demo-dev
+        aci_name: vslive-demo-app-dev
+        image: ghcr.io/${{ github.repository }}:${{ github.run_number }}
+        azure_creds: ${{ secrets.AZURE_CREDENTIALS }}
