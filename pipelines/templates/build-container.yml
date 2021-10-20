@@ -6,8 +6,6 @@ parameters:
   type: string
   default: ghcr.io
 
-trigger: none
-
 jobs:
 - job: build
   displayName: Build container image
