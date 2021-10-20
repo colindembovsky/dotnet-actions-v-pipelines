@@ -12,14 +12,12 @@ jobs:
 
 - template: ./templates/deploy-aci.yml
   parameters:
-    dependsOn:
-    - build
+    dependsOn: build
     environment: dev
     image: ghcr.io/$(repository):$(tag)
 
 - template: ./templates/deploy-aci.yml
   parameters:
-    dependsOn:
-    - deploy_dev
+    dependsOn: deploy_dev
     environment: prod
     image: ghcr.io/$(repository):$(tag)

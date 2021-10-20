@@ -1,7 +1,7 @@
 parameters:
 - name: dependsOn
-  type: array
-  default: []
+  type: string
+  default: ''
 - name: environment
   type: string
   default: dev
