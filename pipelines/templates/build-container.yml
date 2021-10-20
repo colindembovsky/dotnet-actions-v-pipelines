@@ -6,8 +6,11 @@ parameters:
   type: string
   default: ghcr.io
 
+trigger: none
+
 jobs:
-- name: build
+- job: build
+  displayName: Build image
   variables:
     repository: colindembovsky/dotnet-actions-v-pipelines-azdo
     tagVersion: $[counter(variables['repository'], 1)]
