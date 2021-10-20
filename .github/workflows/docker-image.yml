@@ -67,7 +67,9 @@ jobs:
   deploy_dev:
     needs: build
     runs-on: ubuntu-latest
-    environment: dev
+    environment:
+      name: dev
+      url: ${{ steps.deploystep.outputs.fqdn }}
     steps:
     - uses: actions/checkout@v2
 
