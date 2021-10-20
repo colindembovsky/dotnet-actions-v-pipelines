@@ -10,4 +10,4 @@ pool:
   vmImage: ubuntu-latest
 
 jobs:
-- template: ./templates/build-container.yml    
+- template: ./templates/build-container.yml
