@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build and push imagae
+    name: Build and push image
 
     runs-on: ubuntu-latest
     
@@ -58,7 +58,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.ghcr_token }}
       
       - name: Push the container
         run: |
