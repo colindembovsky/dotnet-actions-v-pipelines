@@ -71,7 +71,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: ./.github/workflows/composite/deploy-steps.yml
+    - uses: ./.github/workflows/composite/deploy-steps
       with:
         resource_group: vslive-demo-dev
         aci_name: vslive-demo-app-dev
