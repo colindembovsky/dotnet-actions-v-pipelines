@@ -26,6 +26,7 @@ runs:
         creds: ${{ inputs.azure_creds }}
     
     - name: Deploy the image
+      id: deploystep
       shell: bash
       run: |
         ./infra/aci.sh ${{ inputs.resource_group }} ${{ inputs.aci_name }} ${{ inputs.image }}
