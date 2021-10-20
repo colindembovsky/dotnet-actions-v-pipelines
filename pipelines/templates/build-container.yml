@@ -40,14 +40,14 @@ jobs:
     displayName: Publish test results
     inputs:
       testResultsFiles: 'test_results.xml'
-      searchFolder: ./testresults
+      searchFolder: testresults
       failTaskOnFailedTests: true
   
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: 'Cobertura'
-      summaryFileLocation: ./testresults/**/coverage.cobertura.xml
-      pathToSources: ./src/
+      summaryFileLocation: testresults/**/coverage.cobertura.xml
+      pathToSources: src
       
   - task: Docker@2
     displayName: Push image

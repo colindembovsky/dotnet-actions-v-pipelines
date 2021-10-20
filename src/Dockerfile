@@ -16,7 +16,7 @@ RUN dotnet build "test/dotnet-actions-v-pipelines-tests.csproj" -c Release
 FROM build AS testlayer
 ARG BuildId=localhost
 LABEL test=${BuildId}
-RUN dotnet test --no-build -c Release --results-directory testresults \
+RUN dotnet test --no-build -c Release --results-directory /testresults \
     --logger "junit;LogFileName=test_results.xml" --collect:"XPlat Code Coverage" \
     test/dotnet-actions-v-pipelines-tests.csproj
 
