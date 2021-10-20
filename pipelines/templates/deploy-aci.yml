@@ -1,4 +1,6 @@
 parameters:
+- name: dependsOn
+  default: []
 - name: environment
   type: string
   default: dev
