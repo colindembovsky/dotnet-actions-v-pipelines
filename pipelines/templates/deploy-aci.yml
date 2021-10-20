@@ -1,5 +1,6 @@
 parameters:
 - name: dependsOn
+  type: array
   default: []
 - name: environment
   type: string
