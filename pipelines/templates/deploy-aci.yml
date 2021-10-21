@@ -13,7 +13,7 @@ parameters:
   default: vslive-demo
 - name: image 
   type: string
-- name: secret
+- name: env_secret
   type: string
   
 jobs:
