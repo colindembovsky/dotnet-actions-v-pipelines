@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Build the Docker image
-        run: DOCKER_BUILDKIT=0 docker build . --file src/Dockerfile --tag ghcr.io/${{ github.repository }}:${{ github.run_number }} --label org.opencontainers.image.source https://github.com/${{ github.repository }}
+        run: DOCKER_BUILDKIT=0 docker build . --file src/Dockerfile --tag ghcr.io/${{ github.repository }}:${{ github.run_number }} --label org.opencontainers.image.source=https://github.com/${{ github.repository }}
       
       - name: Extract test results
         run: |
