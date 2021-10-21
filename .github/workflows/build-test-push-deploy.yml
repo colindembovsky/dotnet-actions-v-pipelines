@@ -9,15 +9,11 @@ on:
 
 jobs:
 
-  # build:
-  #   uses: colindembovsky/dotnet-actions-v-pipelines/.github/workflows/reusable-build-push-image.yml@pipelines
-  #   secrets:
-  #     ghcr_token: ${{ secrets.GITHUB_TOKEN }}
   build:
-    runs-on: ubuntu-latest
-    steps:
-    - run: echo hello
-
+    uses: colindembovsky/dotnet-actions-v-pipelines/.github/workflows/reusable-build-push-image.yml@pipelines
+    secrets:
+      ghcr_token: ${{ secrets.GITHUB_TOKEN }}
+  
   # deploy_dev:
   #   needs: build
   #   runs-on: ubuntu-latest
