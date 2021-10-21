@@ -28,7 +28,7 @@ jobs:
       tags: ${{ parameters.tag }}
       Dockerfile: src/Dockerfile
       buildContext: .
-      arguments: --label org.opencontainers.image.source https://github.com/colindembovsky/dotnet-actions-v-pipelines
+      arguments: --label org.opencontainers.image.source=https://github.com/colindembovsky/dotnet-actions-v-pipelines
 
   - bash: |
       id=$(docker images --filter "label=test=localhost" -q | head -1)
