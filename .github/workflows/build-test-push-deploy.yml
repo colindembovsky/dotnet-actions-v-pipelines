@@ -1,5 +1,4 @@
 name: Build - Test - Publish
-# stuff
 
 on:
   push:
@@ -10,10 +9,14 @@ on:
 
 jobs:
 
+  # build:
+  #   uses: colindembovsky/dotnet-actions-v-pipelines/.github/workflows/reusable-build-push-image.yml@pipelines
+  #   secrets:
+  #     ghcr_token: ${{ secrets.GITHUB_TOKEN }}
   build:
-    uses: colindembovsky/dotnet-actions-v-pipelines/.github/workflows/reusable-build-push-image.yml@pipelines
-    secrets:
-      ghcr_token: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo hello
 
   deploy_dev:
     needs: build
