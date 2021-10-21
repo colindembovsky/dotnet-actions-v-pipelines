@@ -30,6 +30,7 @@ jobs:
         aci_name: vslive-demo-app-dev
         image: ghcr.io/${{ github.repository }}:${{ github.run_number }}
         azure_creds: ${{ secrets.AZURE_CREDENTIALS }}
+        env_secret: ${{ secrets.ENV_SECRET }}
         
   deploy_prod:
     needs: deploy_dev
@@ -45,3 +46,4 @@ jobs:
         aci_name: vslive-demo-app-prod
         image: ghcr.io/${{ github.repository }}:${{ github.run_number }}
         azure_creds: ${{ secrets.AZURE_CREDENTIALS }}
+        env_secret: ${{ secrets.ENV_SECRET }}

@@ -17,6 +17,10 @@ inputs:
     description: Azure credentials to log into subscription
     type: string
 
+  env_secret:
+    description: A demo secret variable
+    type: string
+
 runs:
   using: composite
   steps:
@@ -29,4 +33,4 @@ runs:
       id: deploystep
       shell: bash
       run: |
-        ./infra/aci.sh ${{ inputs.resource_group }} ${{ inputs.aci_name }} ${{ inputs.image }}
+        ./infra/aci.sh ${{ inputs.resource_group }} ${{ inputs.aci_name }} ${{ inputs.image }} ${{ inputs.env_secret }}

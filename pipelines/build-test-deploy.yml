@@ -15,16 +15,22 @@ stages:
 
 - stage: dev
   displayName: Dev
+  variables:
+  - group: demo-dev
   jobs:
   - template: ./templates/deploy-aci.yml
     parameters:
       environment: dev
       image: ghcr.io/$(repository):$(tag)
+      env_secret: $(secret)
 
 - stage: prod
   displayName: Prod
+  variables:
+  - group: demo-prod
   jobs:
   - template: ./templates/deploy-aci.yml
     parameters:
       environment: prod
       image: ghcr.io/$(repository):$(tag)
+      env_secret: $(secret)

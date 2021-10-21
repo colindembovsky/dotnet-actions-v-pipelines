@@ -13,6 +13,8 @@ parameters:
   default: vslive-demo
 - name: image 
   type: string
+- name: secret
+  type: string
   
 jobs:
 - deployment: deploy_${{ parameters.environment }}
@@ -37,4 +39,4 @@ jobs:
             scriptType: bash
             scriptLocation: scriptPath
             scriptPath: ./infra/aci.sh
-            arguments: $(rg) $(aci) ${{ parameters.image }}
+            arguments: $(rg) $(aci) ${{ parameters.image }} ${{ parameters.secret }}
