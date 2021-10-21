@@ -39,4 +39,4 @@ jobs:
             scriptType: bash
             scriptLocation: scriptPath
             scriptPath: ./infra/aci.sh
-            arguments: $(rg) $(aci) ${{ parameters.image }} ${{ parameters.secret }}
+            arguments: $(rg) $(aci) ${{ parameters.image }} ${{ parameters.env_secret }}
