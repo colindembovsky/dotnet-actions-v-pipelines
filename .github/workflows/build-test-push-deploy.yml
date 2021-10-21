@@ -10,7 +10,7 @@ on:
 jobs:
 
   build:
-  - uses: ./.github/workflows/reusable/build-push-image.yml
+    uses: ./.github/workflows/reusable/build-push-image.yml
     secrets:
       ghcr_token: ${{ secrets.GITHUB_TOKEN }}
 
