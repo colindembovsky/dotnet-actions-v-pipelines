@@ -2,7 +2,7 @@ name: Build - Test - Publish
 
 on:
   push:
-    branches: [ main, pipelines ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
