@@ -10,7 +10,7 @@ on:
 jobs:
 
   build:
-    uses: colindembovsky/dotnet-action-v-pipelines/.github/workflows/reusable-build-push-image.yml@pipelines
+    uses: colindembovsky/dotnet-actions-v-pipelines/.github/workflows/reusable-build-push-image.yml@pipelines
     secrets:
       ghcr_token: ${{ secrets.GITHUB_TOKEN }}
 
