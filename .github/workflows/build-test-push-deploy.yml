@@ -11,7 +11,7 @@ jobs:
 
   build:
     # use reusable workflow here
-    uses: colindembovsky/dotnet-actions-v-pipelines/.github/workflows/reusable-build-push-image.yml@pipelines
+    uses: colindembovsky/dotnet-actions-v-pipelines/.github/workflows/reusable-build-push-image.yml@main
     secrets:
       ghcr_token: ${{ secrets.GITHUB_TOKEN }}
   
