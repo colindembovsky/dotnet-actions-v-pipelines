@@ -16,7 +16,7 @@ jobs:
   
   # inject the prebuild steps, filtering out pwsh
   - ${{ each step in parameters.preBuildSteps }}:
-    - ${{ if not(containsValue(step, "pwsh")) }}:
+    - ${{ if containsValue(step, 'pwsh') }}:
       - ${{ step }}
     #- ${{ each pair in step }}:
     #  - script: echo "${{ convertToJson(pair.value) }}"
