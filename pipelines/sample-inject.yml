@@ -1,0 +1,24 @@
+trigger: none
+
+jobs:
+- template: ./templates/sample-inject-steps.yml
+  parameters:
+    preBuildSteps:
+    - bash: |
+        echo This is prebuild step 1
+      displayName: PreBuild Step 1
+    - bash: |
+        echo This is prebuild step 2
+      displayName: PreBuild Step 2
+    postBuildSteps:
+    - bash: |
+        echo This is postbuild step 3
+      displayName: PostBuild Step 3
+    - bash: |
+        echo This is postbuild step 4
+      displayName: PostBuild Step 4
+    - services:
+      - service1
+      - service2
+      - service3
+    
