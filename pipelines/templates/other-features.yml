@@ -18,8 +18,8 @@ jobs:
   - ${{ each step in parameters.preBuildSteps }}:
     - script: echo "${{ convertToJson(step.task) }}"
       displayName: Echo step json
-    #- ${{ if containsValue(step, 'pwsh') }}:
-    #  - ${{ step }}
+    - ${{ if contains(step.task, 'PowerShell') }}:
+      - ${{ step }}
     #- ${{ each pair in step }}:
     #  - script: echo "${{ convertToJson(pair.value) }}"
     #    displayName: ${{ pair.key }}
