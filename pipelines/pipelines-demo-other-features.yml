@@ -1,7 +1,7 @@
 trigger: none
 
 jobs:
-- template: ./templates/sample-inject-steps.yml
+- template: ./templates/other-features.yml
   parameters:
     preBuildSteps:
     - bash: |
