@@ -15,7 +15,7 @@ jobs:
   steps:
   
   # inject the prebuild steps, filtering out pwsh
-  - ${{ each stp in preBuildSteps }}:
+  - ${{ each stp in parameters.preBuildSteps }}:
       ${{ if ne(stp.key, 'pwsh') }}:
         ${{ stp.key }}: ${{ stp.value }}
   
