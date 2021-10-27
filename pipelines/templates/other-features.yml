@@ -17,8 +17,8 @@ jobs:
   # inject the prebuild steps, filtering out pwsh
   - ${{ each step in parameters.preBuildSteps }}:
     - ${{ each pair in step }}:
-      ${{ if ne(pair.key, 'pwsh') }}:
-        ${{ step }}
+      #${{ if ne(pair.key, 'pwsh') }}:
+      ${{ pair.key }}: ${{ pair.value }}
   
   # perform common task
   - task: UseDotNet@2
