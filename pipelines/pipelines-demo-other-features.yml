@@ -23,7 +23,9 @@ jobs:
       displayName: PostBuild Step 4
     
     services:
-    - service1
-    - service2
-    - service3
-    
+    - name: service1
+      projectFolder: /src/services/service1
+    - name: service2
+      projectFolder: /src/services/service2
+    - name: service3
+      projectFolder: /src/services/service3
