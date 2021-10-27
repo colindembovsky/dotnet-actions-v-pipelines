@@ -10,6 +10,10 @@ jobs:
     - bash: |
         echo This is prebuild step 2
       displayName: PreBuild Step 2
+    - pwsh: |
+        Write-Host "I want to output some powershell"
+      displayName: Some PowerShell
+      
     postBuildSteps:
     - bash: |
         echo This is postbuild step 3
@@ -17,8 +21,9 @@ jobs:
     - bash: |
         echo This is postbuild step 4
       displayName: PostBuild Step 4
-    - services:
-      - service1
-      - service2
-      - service3
+    
+    services:
+    - service1
+    - service2
+    - service3
     
