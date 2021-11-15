@@ -15,18 +15,23 @@ jobs:
     secrets:
       ghcr_token: ${{ secrets.GITHUB_TOKEN }}
   
-  # have to explicity pass in environment variables
+  # can't use reusable workflow if relying on env secrets
+  # use composite actions
   deploy_dev:
     needs: build
-    uses: ./.github/workflows/reusalbe-deploy.yml@main
-    with:
-      resource_group: vslive-demo-dev
-      aci_name: vslive-demo-app-dev
-      image: ghcr.io/${{ github.repository }}:${{ github.run_number }}
-      environment: dev
-    secrets:
-      azure_creds: ${{ secrets.AZURE_CREDENTIALS }}
-      env_secret: ${{ secrets.ENV_SECRET }}
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: http://vslive-demo-app-dev.southcentralus.azurecontainer.io
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/workflows/composite/deploy-steps
+      with:
+        resource_group: vslive-demo-dev
+        aci_name: vslive-demo-app-dev
+        image: ghcr.io/${{ github.repository }}:${{ github.run_number }}
+        azure_creds: ${{ secrets.AZURE_CREDENTIALS }}
+        env_secret: ${{ secrets.ENV_SECRET }}
         
   deploy_prod:
     needs: deploy_dev
