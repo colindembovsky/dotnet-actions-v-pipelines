@@ -1,0 +1,69 @@
+name: PR Create Deployment
+
+on:
+  pull_request:
+    types: [ labeled ]
+
+jobs:
+  createDeploy:
+    name: Create Deployment
+    runs-on: ubuntu-latest
+    if: |
+      github.event.label.name == 'deploy to test' ||
+      github.event.label.name == 'deploy to staging' ||
+      github.event.label.name == 'deploy to qa'
+  
+    steps:
+    - name: Checkout Sources
+      uses: actions/checkout@v2
+
+    - name: Get container label
+      id: container_label
+      uses: actions/github-script@v4.0.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const scriptPath = require('path').resolve('./.github/workflows/scripts/getContainerLabel.js');
+          const DeploymentLabel = require(scriptPath);
+          const deploymentLabel = new DeploymentLabel(context, core, github);
+          await deploymentLabel.acknowledgeDeployLabel();
+    
+    - name: Create Deployment
+      uses: actions/github-script@v4.0.2
+      env:
+        container_registry: ghcr.io
+        app_container_image: ${{ github.repository_owner }}/${{ steps.container_label.outputs.app_container_image }}
+        app_container_version: ${{ steps.container_label.outputs.app_container_version }}
+
+      with:
+        github-token: ${{ steps.temp_token.outputs.token }}
+        script: |
+          const scriptPath = require('path').resolve('./.github/workflows/scripts/createDeployment.js');
+          const createDeployment = require(scriptPath);
+          const LABEL_TO_ENVIRONMENT = {
+            'deploy to qa': 'qa',
+            'deploy to staging': 'staging',
+            'deploy to test': 'test'
+          };
+          await createDeployment({
+            context: context,
+            github: github,
+            environment: LABEL_TO_ENVIRONMENT[context.payload.label.name.toLowerCase()],
+            containerRegistry: process.env.container_registry,
+            appContainerImage: process.env.app_container_image,
+            appContainerVersion: process.env.app_container_version,
+            sha: context.sha,
+            head: context.payload.pull_request.head.ref, //Branch name PR created from
+          });
+      
+    - name: Report Failure
+      if: failure()
+      uses: actions/github-script@v4.0.2
+      with:
+        script: |
+          const commentBody = `Failure in _${context.payload.label.name.toLowerCase()}_, for more details see https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+          await github.issues.createComment({
+            ...context.repo,
+            issue_number: context.payload.number,
+            body: commentBody,
+          });

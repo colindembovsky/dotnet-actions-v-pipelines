@@ -1,0 +1,11 @@
+name: PR Build
+
+on:
+  pull_request:
+    branches: [ main ]
+
+build:
+  name: Build
+  uses: colindembovsky/dotnet-actions-v-pipelines/.github/workflows/reusable-build-push-image.yml@main
+  secrets:
+    ghcr_token: ${{ secrets.GITHUB_TOKEN }}

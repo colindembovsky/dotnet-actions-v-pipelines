@@ -62,3 +62,12 @@ jobs:
       - name: Push the container
         run: |
           docker push ghcr.io/${{ github.repository }}:${{ github.run_number }}
+
+      - name: Publish image as a Status
+        id: container_image_status
+        uses: Sibz/github-status-action@v1.1.5
+        with:
+          authToken: ${{ secrets.GITHUB_TOKEN }}
+          state: success
+          context: Container Image Published - app
+          description: ghcr.io/${{ github.repository }}:${{ github.run_number }}
