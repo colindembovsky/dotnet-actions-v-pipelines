@@ -1,2 +1,2 @@
 # dotnet-actions-v-pipelines
-Demo for VSLive Actions v Pipelines Talk
+Demo for VSLive 2021 Actions v Pipelines Talk

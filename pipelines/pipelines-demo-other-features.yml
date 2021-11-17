@@ -1,0 +1,31 @@
+trigger: none
+
+jobs:
+- template: ./templates/other-features.yml
+  parameters:
+    preBuildSteps:
+    - bash: |
+        echo This is prebuild step 1
+      displayName: PreBuild Step 1
+    - bash: |
+        echo This is prebuild step 2
+      displayName: PreBuild Step 2
+    - pwsh: |
+        Write-Host "I want to output some powershell"
+      displayName: Some PowerShell
+      
+    postBuildSteps:
+    - bash: |
+        echo This is postbuild step 3
+      displayName: PostBuild Step 3
+    - bash: |
+        echo This is postbuild step 4
+      displayName: PostBuild Step 4
+    
+    services:
+    - name: service1
+      projectFolder: /src/services/service1
+    - name: service2
+      projectFolder: /src/services/service2
+    - name: service3
+      projectFolder: /src/services/service3

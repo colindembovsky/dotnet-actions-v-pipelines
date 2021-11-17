@@ -15,7 +15,8 @@ jobs:
     secrets:
       ghcr_token: ${{ secrets.GITHUB_TOKEN }}
   
-  # can't use reusable for environment deployments, so use composite
+  # can't use reusable workflow if relying on env secrets
+  # use composite actions
   deploy_dev:
     needs: build
     runs-on: ubuntu-latest

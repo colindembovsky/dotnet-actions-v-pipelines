@@ -1,0 +1,40 @@
+parameters:
+- name: preBuildSteps
+  type: stepList
+  default: []
+- name: postBuildSteps
+  type: stepList
+  default: []
+- name: services
+  type: object
+  default: []
+
+jobs:
+- job: build
+  displayName: Build
+  steps:
+  
+  # inject the prebuild steps, filtering out pwsh
+  - ${{ each step in parameters.preBuildSteps }}:
+    - ${{ if not(contains(step.task, 'PowerShell')) }}:
+      - ${{ step }}
+    
+  # perform common task
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk'
+    inputs:
+      version: 5.x
+  
+  # loop!
+  - ${{ each svc in parameters.services }}:
+    - bash: |
+        echo Building ${{ svc.name }}
+      displayName: Build ${{ svc.name }}
+    - bash: |
+        echo Project folder: ${{ svc.projectFolder }}
+      displayName: Output project folder ${{ svc.name }}
+    
+  # inject the postbuild steps, filtering out pwsh
+  - ${{ each step in parameters.postBuildSteps }}:
+    - ${{ if not(contains(step.task, 'PowerShell')) }}:
+      - ${{ step }}
